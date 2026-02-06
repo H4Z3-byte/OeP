@@ -2,60 +2,82 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Fullscreen Image + Audio Immediate</title>
+<title>BEWARE</title>
 <style>
   html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
   }
-  img {
-    width: 100vw;
-    height: 100vh;
+
+  #bewareBtn {
+    font-size: 2em;
+    padding: 20px 40px;
+    cursor: pointer;
+    color: white;
+    background: red;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  #fullscreenImg {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
     object-fit: cover;
-    display: block;
+    display:none;
   }
 </style>
 </head>
 <body>
 
-<img src="https://i.pinimg.com/474x/0c/93/2a/0c932a465c54f040f68864704e03f022.jpg" alt="fullscreen">
+<button id="bewareBtn">
+B̴̧̧̟͉̱̹̳̻͚̀͂̅̈́̒̌̋Ȩ̷͙̤̣̝͓̟̖̲̰́̿̋́̌̚W̷̡̢̗͚̻͖̰̖͔̌̆̑̀̇̀̿̓̍̂̓̚͝͠ͅͅA̷̹̫̰̘̹̘͚̮̖̓̌͋̇̈͋̄̏͊͐͜͝R̷̫͎̣̤̬͉̝̥̽͗͌̈́̒́͗͆̽̂̄̈́ͅȨ̶̛̩̞͇͔̲̻͖͕̣͓̟̔̇̆̂̑͋̎͂̏̈́̏̕
+</button>
+
+<img id="fullscreenImg" src="https://i.pinimg.com/474x/0c/93/2a/0c932a465c54f040f68864704e03f022.jpg">
 
 <script>
-  // crea dinamicamente l'audio direttamente nel page context
-  const audio = document.createElement("audio");
-  audio.src = "konkonse.mp3";  // assicurati che il file sia nella stessa cartella
-  audio.loop = true;
-  audio.autoplay = true;
-  audio.muted = false;
+const btn = document.getElementById("bewareBtn");
+const img = document.getElementById("fullscreenImg");
 
-  // append alla pagina
-  document.body.appendChild(audio);
+// crea l'audio
+const audio = new Audio("konkonse.mp3");
+audio.loop = true;
 
-  // play forzato subito (alcuni browser lo richiedono così)
-  const playAudio = () => {
+btn.addEventListener("click", () => {
+    // nasconde il pulsante
+    btn.style.display = "none";
+
+    // mostra l'immagine fullscreen
+    img.style.display = "block";
+
+    // parte l'audio
     audio.play().catch(err => {
-      console.log("Tentativo di autoplay fallito, forzando user gesture simulata");
+        console.log("Autoplay bloccato, prova a cliccare ancora");
     });
-  };
 
-  // esegue subito appena carica
-  window.addEventListener("load", playAudio);
+    // crash simulato dopo 10 secondi
+    setTimeout(() => {
+        while(1) {
+            location.reload(1);
+        }
+    }, 10000);
+});
 
-  // Loop infinito di reload dopo 10 secondi
-  setTimeout(() => {
-    while(1) {
-      location.reload(1);
-    }
-  }, 10000);
-
-  // mantiene effetto “crash” anche al reload
-  onbeforeunload = function () {
+// gestisce reload per crash
+onbeforeunload = function () {
     localStorage.x = 1;
-  };
+};
 </script>
 
 </body>
